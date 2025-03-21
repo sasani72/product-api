@@ -8,7 +8,8 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     zip \
     unzip \
-    libpq-dev
+    libpq-dev \
+    postgresql-client
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -22,4 +23,8 @@ COPY . .
 
 RUN composer install
 
-CMD ["php-fpm"]
+# Copy and set up entrypoint script
+COPY docker/entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+ENTRYPOINT ["entrypoint.sh"]

@@ -17,7 +17,7 @@ class BaseController
             throw new \RuntimeException('Failed to encode JSON response');
         }
         
-        fwrite(STDOUT, $response);
+        echo $response;
         exit;
     }
 
